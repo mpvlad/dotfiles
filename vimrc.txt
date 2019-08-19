@@ -1,0 +1,59 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set clipboard=unnamed         " copies to clipboard rather than vim buffer
+
+execute pathogen#infect()
+syntax on
+filetype plugin indent on " not sure what this does but is requires
+
+set number        " enables line numbers
+set tabstop=3     " number of visual spaces per tab
+set softtabstop=3     " number of spaces in tab while editing
+set shiftwidth=3
+set expandtab         " turns tabs into spaces
+set cursorline        " show command in bottom bar
+set showcmd           " highlight current line 
+set lazyredraw        " redraw screen lazily for faster macros
+set showmatch         "highlight matching [{()}]
+set incsearch           " search as characters are entered
+:au BufEnter *.* :set colorcolumn= " Removed the annoying color column.
+
+"c++ stuff
+autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp
+:map <C-c> :!make clean<CR>
+:map <C-m> :!make -j4<CR>
+
+"" CMake flags
+let g:cmake_cxx_compiler='clang++'
+let g:cmake_c_compiler='clang'
+let g:cmake_ycm_symlinks=1
+
+" remove the question when opening a new file in vim with uses ycm
+let g:ycm_confirm_extra_conf=0
+let g:ycm_extra_conf_vim_data = ['&filetype']
+let g:ycm_max_diagnostics_to_display = 0
+" logos syntax for theos files.
+
+"auto completion settings"
+set completeopt+=menuone
+set completeopt+=noinsert
+set noinfercase
+set completeopt+=preview
+set completeopt+=menuone,noselect
+
+" NERDTree
+:map <C-n> :NERDTreeToggle<CR>
+:map <C-r> :NERDTreeRefreshRoot<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+"shut off completion messages"
+"set shortmess
+
+" removed up, down, left right to learn to use hjkl
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+colorscheme elflord
